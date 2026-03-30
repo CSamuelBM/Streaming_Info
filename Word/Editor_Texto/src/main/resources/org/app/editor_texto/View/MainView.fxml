@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ToggleButton?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.app.editor_texto.Controller.MainController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <top>
+        <ToggleButton fx:id="tbEnviar" text="ENVIAR" onAction="#accionEnviar"/>
+    </top>
+
+    <center>
+        <HBox spacing="10" prefHeight="20" alignment="CENTER_RIGHT">
+            <TextArea fx:id="taEnviar" promptText="TEXTO.........."/>
+            <TextArea fx:id="taRecibir" promptText="DATOS LLEGADA......."/>
+        </HBox>
+    </center>
+    
+</BorderPane>
