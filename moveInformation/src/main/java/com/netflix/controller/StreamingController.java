@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/moveInformation")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class StreamingController {
 
     private final StreamingService streamingService;
@@ -42,7 +43,7 @@ public class StreamingController {
     }
 
     @PostMapping()
-    public void setMovie(@RequestBody StreamingDTO movie) {
+    public void postMovie(@RequestBody StreamingDTO movie) {
         streamingService.setMovie(movie);
     }
 
