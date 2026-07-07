@@ -17,6 +17,6 @@ public class ProductionWorkerEntity {
     private double production;
     @Column(name="worker_number")
     private long workerNumber;
-    @ManyToOne @JoinColumn(name="productionId")
-    private ProductionEntity productionOrchard;
+    @ManyToOne @JoinColumn(name="production_id")
+    private ProductionEntity productionEntity;
 }
