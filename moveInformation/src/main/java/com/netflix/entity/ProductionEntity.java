@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity @Table(name="Production")
+@Entity @Table(name="production")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class ProductionEntity {
