@@ -22,6 +22,6 @@ public class ProductionEntity {
     private long allWorkers;
     @Column(name="all_hectares")
     private long allHectares;
-    @OneToMany(mappedBy="productionWorker")
+    @OneToMany(mappedBy="productionOrchard")
     private List<ProductionWorkerEntity> productionWorker;
 }
