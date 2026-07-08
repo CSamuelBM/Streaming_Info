@@ -5,22 +5,17 @@ import com.netflix.dto.ProductionDTO.ProductionResponseDTO;
 import com.netflix.dto.ProductionWorkerDTO.ProductionWorkerRegisterDTO;
 import com.netflix.entity.ProductionEntity;
 import com.netflix.repository.ProductionRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service @RequiredArgsConstructor
 public class ProductionService {
     private final ProductionRepository productionRepository;
     private final ProductionWorkerService productionWorkerService;
-
-    private List<Double> listWeight, listCast;
-    private Random random = new Random();
-
-    private double sumWeight, factor, totalCast;
-    private double rndm = random.nextDouble(0.03, 0.06);
 
     public void insertDataProduction(ProductionRegisterDTO productionRegisterDTO){
         ProductionEntity productionEntity = new ProductionEntity();
@@ -28,6 +23,7 @@ public class ProductionService {
         productionRepository.save(productionEntity);
     }
 
+    @Transactional
     public ProductionResponseDTO getDataProduction(long productionId) {
         ProductionEntity production = productionCast(productionId);
         return new ProductionResponseDTO(
@@ -40,17 +36,27 @@ public class ProductionService {
     }
 
     private ProductionEntity productionCast(long productionId){
+        java.util.concurrent.ThreadLocalRandom random = java.util.concurrent.ThreadLocalRandom.current();
         ProductionEntity production = productionRepository.findById(productionId).orElseThrow();
-        for(int i = 0; i < production.getAllWorkers(); i++) {
+
+        long totalWorkers = production.getAllWorkers();
+        double sumWeight = 0.0, totalCast = 0.0, factor, factorCast;
+
+        List<Double> listWeight = new ArrayList<>();
+        List<Double> listCast = new ArrayList<>();
+
+        for(int i = 0; i < totalWorkers; i++) {
+            double rndm = random.nextDouble(0.03, 0.06);
             listWeight.add(rndm);
-            sumWeight += listWeight.get(i);
+            sumWeight += rndm;
         }
 
-        factor = production.getAllHectares() / sumWeight;
-        for(int i = 0; i < production.getAllWorkers(); i++) {
-            listCast.add(listWeight.get(i) * factor);
-            totalCast += listCast.get(i);
-            ProductionWorkerRegisterDTO productionWorkerRegisterDTO = new ProductionWorkerRegisterDTO(listCast.get(i), production);
+        factor = totalWorkers / sumWeight;
+        for(int i = 0; i < totalWorkers; i++) {
+            factorCast = listWeight.get(i) * factor;
+            listCast.add(factorCast);
+            totalCast += factorCast;
+            ProductionWorkerRegisterDTO productionWorkerRegisterDTO = new ProductionWorkerRegisterDTO(factorCast, production);
             productionWorkerService.insertDataProductionWorker(productionWorkerRegisterDTO);
         }
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductionWorkerController {
     private final ProductionWorkerService productionWorkerService;
 
-    @GetMapping("{productionWorkerId}")
+    @GetMapping("/{productionWorkerId}")
     public ProductionWorkerResponseDTO getDataProductionWorker(@PathVariable long productionWorkerId) {
         return productionWorkerService.getDataProductionWorker(productionWorkerId);
     }
