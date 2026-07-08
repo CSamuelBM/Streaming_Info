@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service @RequiredArgsConstructor
 public class ProductionService {
@@ -37,21 +37,22 @@ public class ProductionService {
     }
 
     private ProductionEntity productionCast(long productionId){
-        Random random = new Random();
+        java.util.concurrent.ThreadLocalRandom random = java.util.concurrent.ThreadLocalRandom.current();
         ProductionEntity production = productionRepository.findById(productionId).orElseThrow();
 
         long totalWorkers = production.getAllWorkers();
-        double sumWeight = 0.0, totalCast = 0.0, factor, cast;
-        double rndm = random.nextDouble(0.03, 0.06);
+        long totalHectares = production.getAllHectares();
 
+        double sumWeight = 0.0, totalCast = 0.0, factor, cast, rndm;
         List<Double> listWeight = new ArrayList<>();
 
         for(int i = 0; i < totalWorkers; i++) {
+            rndm = random.nextDouble(0.03, 0.06);
             listWeight.add(rndm);
-            sumWeight += listWeight.get(i);
+            sumWeight += rndm;
         }
 
-        factor = totalWorkers / sumWeight;
+        factor = totalHectares / sumWeight;
         for(int i = 0; i < totalWorkers; i++) {
             cast = listWeight.get(i) * factor;
             totalCast += cast;
