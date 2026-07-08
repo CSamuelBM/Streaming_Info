@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/moveInformation")
-@RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@RestController @RequestMapping("/moveInformation")
+@RequiredArgsConstructor @CrossOrigin(origins = "*")
 public class StreamingController {
-
     private final StreamingService streamingService;
 
     @GetMapping("/{showId}")

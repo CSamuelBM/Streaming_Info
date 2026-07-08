@@ -14,15 +14,19 @@ public class StreamingEntity {
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="show_id") private long showId;
     @Column(name="typee") private String typee;
+
     @Column(name="title") private String title;
     @Column(name="director", columnDefinition="TEXT") private String director;
     @Column(name="castt", columnDefinition="TEXT") private String castt;
+
     @Column(name="country") private String country;
     @Column(name="date_added") private String dateAdded;
     @Column(name="release_year") private String releaseYear;
+
     @Column(name="rating") private String rating;
     @Column(name="duration") private String duration;
     @Column(name="listed_in") private String listedIn;
+
     @Column(name="description", columnDefinition="TEXT") private String description;
 
     public void fromEntity(StreamingDTO movieDTO) {

@@ -16,10 +16,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
+@Service @RequiredArgsConstructor
 public class StreamingService {
-
     private final StreamingRepository streamingRepository;
 
     public StreamingDTO getStreamingId(long showId) {
@@ -30,8 +28,8 @@ public class StreamingService {
     public Page<StreamingDTO> getStreamingAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<StreamingEntity> pageMovie = streamingRepository.findAll(pageable);
-        List<StreamingDTO> listData = pageMovie.getContent().stream()
-                .map(StreamingDTO::fromDTO).toList();
+        List<StreamingDTO> listData = pageMovie.getContent().stream().map(StreamingDTO::fromDTO).toList();
+
         return new PageImpl<>(listData, pageable, pageMovie.getTotalElements());
     }
 
@@ -53,7 +51,6 @@ public class StreamingService {
 
             return criteriaBuilder.and(listPredicate.toArray(new Predicate[0]));
         };
-
         return streamingRepository.findAll(specification).stream().map(StreamingDTO::fromDTO).toList();
     }
 

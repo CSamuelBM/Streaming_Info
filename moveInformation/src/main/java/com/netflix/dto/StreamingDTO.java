@@ -11,7 +11,6 @@ public record StreamingDTO(
     public static StreamingDTO fromDTO(StreamingEntity movie) {
         if(movie == null)
             return null;
-
         return new StreamingDTO(
                 movie.getTypee(), movie.getTitle(), movie.getDirector(),
                 movie.getCastt(), movie.getCountry(), movie.getDateAdded(),
