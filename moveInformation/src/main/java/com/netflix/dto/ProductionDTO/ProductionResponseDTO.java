@@ -8,7 +8,7 @@ import java.util.List;
 public record ProductionResponseDTO (
         long productionId,
         long allWorkers,
-        long allHectares,
+        double allHectares,
         double totalCast,
         List<ProductionWorkerMapeoDTO> productionWorker
 ) {

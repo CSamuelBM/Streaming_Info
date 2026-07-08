@@ -17,7 +17,7 @@ public class ProductionEntity {
     @Column(name="production_id") private long productionId;
     @Column(name="all_workers") private long allWorkers;
 
-    @Column(name="all_hectares") private long allHectares;
+    @Column(name="all_hectares") private double allHectares;
     @Column(name="total_cast") private double totalCast;
     @OneToMany(mappedBy="productionEntity") private List<ProductionWorkerEntity> productionWorker;
 

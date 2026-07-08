@@ -4,5 +4,5 @@ public record ProductionWorkerResponseDTO(
         long productionWorkerId,
         double production,
         long productionId,
-        long allHectares
+        double allHectares
 ) { }
